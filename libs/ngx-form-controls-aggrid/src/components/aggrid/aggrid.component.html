@@ -1,0 +1,7 @@
+<input type="text"
+       [formControl]="formElement"
+       [class]="realMode() === 'view'? 'form-control-plaintext '+elementClass : 'form-control '+elementClass"
+       [readonly]="realMode() === 'view'"
+       id="{{id}}"
+>
+
