@@ -5,7 +5,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import { NgxFormControlText, NgxFormControlSelect, NgxFormControlMultiSelect, NgxFormControlCheckbox } from 'ngx-form-controls';
 import { NpxControlDataSetter } from 'ngx-form-controls';
 
-// import { NpxFormControlAggrid } from 'ngx-form-controls-aggrid';
+import { NgxFormControlAggrid } from 'ngx-form-controls-aggrid';
 
 @Component({
   selector: 'app-root',
@@ -70,6 +70,7 @@ export class AppComponent implements OnInit {
   // };
 
   form = new FormGroup({
+    aggrid: new NgxFormControlAggrid({}, [])
   //   text: new NgxFormControlText('22', []),
   //   select: new NgxFormControlSelect('1', []),
   //   multiCheckbox: new NgxFormControlMultiSelect(['2'], []),
@@ -90,7 +91,7 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.form.value);
+    console.log(this.form.value);
     // NpxControlDataSetter.setControlsData(this.form, this.formData);
     return false;
   }

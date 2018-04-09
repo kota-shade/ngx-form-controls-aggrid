@@ -1,7 +1,10 @@
 <h1>NgxFormControlAggrid example application</h1>
 <form
   [formGroup]="form" (ngSubmit)="onSubmit()" >
-  <ngx-form-control-aggrid></ngx-form-control-aggrid>
+  <ngx-form-control-aggrid
+    [modelType]="'inMemory'"
+    [formElement]="form.controls['aggrid']"
+  ></ngx-form-control-aggrid>
   <!--<ngx-form-control-text [formElement]="form.get('text')"></ngx-form-control-text>-->
   <!--<ngx-form-control-error-message [formElement]="form.get('text')"></ngx-form-control-error-message>-->
 
