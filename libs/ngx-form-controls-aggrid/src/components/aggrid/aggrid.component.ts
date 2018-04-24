@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormControlAggrid} from '../../controls/form-control-aggrid';
-import {GridOptions} from "ag-grid/main";
+import {GridOptions} from 'ag-grid/main';
 
 @Component({
   selector: 'ngx-form-control-aggrid',
@@ -28,7 +28,7 @@ export class AggridComponent implements OnInit {
        //  pagination: true,
        // paginationPageSize: 3,
        // cacheBlockSize: 3,
-      getRowNodeId: function(item) {
+      getRowNodeId: function(item) { // возвращает идентификатор записи.
         console.log('KOTA item', item);
           // the id can be any string, as long as it's unique within your dataset
           return item.id.toString();
@@ -41,21 +41,24 @@ export class AggridComponent implements OnInit {
   }
 
   changeFormData(data) {
-    console.log(' SELF ', self);
-    console.log('DATA', data);
+    const self = data.context.componentParent;
+    self.saveChangedRow(data);
+  }
+
+  saveChangedRow(data) {
+    console.log('KOTA saveChangedRow data = ', data);
     console.log('KOTA id = ', data.node.id);
     console.log('KOTA rowIndex = ', data.node.rowIndex);
     console.log('KOTA colName = ', data.colDef.field);
     console.log('KOTA newValue = ', data.newValue);
     console.log('KOTA oldValue = ', data.oldValue);
 
-    const formElement = data.context.componentParent.formElement;
+    const formElement = this.formElement;
     const elementValueData = formElement.value;
     const id = data.node.id;
     elementValueData['' + id] = data.data; // сохраняем новое состояние записи
     formElement.setValue(elementValueData);
   }
-
 
   realMode() {
     if (this.mode === null) {
@@ -65,25 +68,25 @@ export class AggridComponent implements OnInit {
   }
 
   onGridReady(params) {
-    const self = this;
+    // const self = this;
     params.api.setColumnDefs([
           {
             field: 'id',
             editable: false,
             hide: true,
           },
-            {headerName: "Make", field: "make",
+            {headerName: 'Make', field: 'make',
               editable: true,
               onCellValueChanged: this.changeFormData,
             },
-            {headerName: "Model", field: "model"},
-            {headerName: "Price", field: "price"}
+            {headerName: 'Model', field: 'model', editable: true },
+            {headerName: 'Price', field: 'price'}
       ]);
 
     params.api.setRowData([
-            {id: 1, make: "Toyota", model: "Celica", price: 35000},
-            {id: 2, make: "Ford", model: "Mondeo", price: 32000},
-            {id: 3, make: "Porsche", model: "Boxter", price: 72000}
+            {id: 1, make: 'Toyota', model: 'Celica', price: 35000},
+            {id: 2, make: 'Ford', model: 'Mondeo', price: 32000},
+            {id: 3, make: 'Porsche', model: 'Boxter', price: 72000}
         ]);
 
     // const self = this;
@@ -104,5 +107,9 @@ export class AggridComponent implements OnInit {
     // };
     // params.api.setDatasource(dataSource);
     params.api.sizeColumnsToFit();
+  }
+
+  onCellValueChanged(data) {
+      console.log('KOTA onCellValueChanged data', data);
   }
 }

@@ -2,6 +2,7 @@
                  [class]="elementClass"
                  [gridOptions]="gridOptions"
                  (gridReady)="onGridReady($event)"
+                 (cellValueChanged)="onCellValueChanged($event)"
                  id="{{id}}"
 >
 </ag-grid-angular>
